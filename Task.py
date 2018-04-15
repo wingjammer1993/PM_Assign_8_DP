@@ -8,7 +8,7 @@ def draw_from_crp(alpha, sigma, num_samples):
 	customer_table = {1: 1}
 	x_0 = np.random.uniform()
 	y_0 = np.random.uniform()
-	covariance = [[sigma, sigma*sigma], [sigma*sigma, sigma]]
+	covariance = [[sigma*sigma, 0], [0, sigma*sigma]]
 	g0_params = [x_0, y_0]
 	customer_x = OrderedDict()
 	customer_y = OrderedDict()
