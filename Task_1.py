@@ -10,9 +10,10 @@ def give_unoccupied_crp_distribution(alpha, total_customers):
 	plt.locator_params(axis='x', nbins=20)
 	plt.xlabel("Number of customers")
 	plt.ylabel("Probability of empty table assignment")
-	plt.title("Number of customers in the hotel vs. Probability of empty table assignment with CRP")
+	plt.title("Number of customers in the hotel vs. Probability of empty table assignment with CRP with alpha = 0.5")
 	plt.show()
 
 
-give_unoccupied_crp_distribution(0.5, 500)
+if __name__ == "__main__":
+	give_unoccupied_crp_distribution(0.5, 500)
 
