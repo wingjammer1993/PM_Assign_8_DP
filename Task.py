@@ -54,8 +54,9 @@ def give_unoccupied_crp_distribution(alpha, total_customers):
 
 
 if __name__ == "__main__":
+
 	# Part 1
-	#give_unoccupied_crp_distribution(0.5, 500)
+	give_unoccupied_crp_distribution(0.5, 500)
 
 	# Part 2
 	draw_from_crp(0.5, 0.1, 500)
