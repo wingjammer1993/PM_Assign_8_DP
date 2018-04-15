@@ -23,7 +23,10 @@ def draw_from_crp(alpha, sigma, num_samples):
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			params[k] = theta
 		else:
-			idx_max = 0
+			probability_old = []
+			for table in customer_table:
+				probability_old.append(customer_table[table] / (customer - 1 + alpha))
+			idx_max = np.argmax(np.random.multinomial(1, probability_old, size=1))
 			theta = params[int(idx_max)]
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			customer_table[int(idx_max)] = customer_table[int(idx_max)] + 1
