@@ -9,14 +9,14 @@ def draw_from_crp(alpha, sigma, num_samples):
 	covariance = [[sigma*sigma, 0], [0, sigma*sigma]]
 	customer_x = OrderedDict()
 	customer_y = OrderedDict()
-	theta_1 = (np.random.uniform(),np.random.uniform())
+	theta_1 = (np.random.uniform(), np.random.uniform())
 	customer_x[1], customer_y[1] = np.random.multivariate_normal([theta_1[0], theta_1[1]], covariance)
 	params = {1: theta_1}
 	for customer in range(2, num_samples):
 		probability_new = alpha / (customer - 1 + alpha)
 		if np.random.rand() < probability_new:
 			k = k + 1
-			theta = (np.random.uniform(),np.random.uniform())
+			theta = (np.random.uniform(), np.random.uniform())
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			params[k] = theta
 			customer_table[k] = 1
