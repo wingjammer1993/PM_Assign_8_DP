@@ -31,6 +31,8 @@ def draw_from_crp(alpha, sigma, num_samples):
 			theta = params[int(idx_max)]
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			customer_table[int(idx_max)] = customer_table[int(idx_max)] + 1
+	plt.scatter(list(customer_x.values()), list(customer_y.values()))
+	plt.show()
 
 
 def give_unoccupied_crp_distribution(alpha, total_customers):
