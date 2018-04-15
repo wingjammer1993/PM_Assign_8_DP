@@ -32,6 +32,12 @@ def draw_from_crp(alpha, sigma, num_samples):
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			customer_table[int(idx_max)] = customer_table[int(idx_max)] + 1
 	plt.scatter(list(customer_x.values()), list(customer_y.values()))
+	list_1 = []
+	list_2 = []
+	for p in params:
+		list_1.append(params[p][0])
+		list_2.append(params[p][-1])
+	plt.scatter(list_1, list_2, color='green')
 	plt.show()
 
 
