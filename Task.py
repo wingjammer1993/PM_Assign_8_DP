@@ -6,20 +6,17 @@ from collections import OrderedDict
 def draw_from_crp(alpha, sigma, num_samples):
 	k = 1
 	customer_table = {1: 1}
-	x_0 = np.random.uniform()
-	y_0 = np.random.uniform()
 	covariance = [[sigma*sigma, 0], [0, sigma*sigma]]
-	g0_params = [x_0, y_0]
 	customer_x = OrderedDict()
 	customer_y = OrderedDict()
-	theta_1 = np.random.multivariate_normal([g0_params[0], g0_params[1]], covariance)
+	theta_1 = (np.random.uniform(),np.random.uniform())
 	customer_x[1], customer_y[1] = np.random.multivariate_normal([theta_1[0], theta_1[1]], covariance)
 	params = {1: theta_1}
 	for customer in range(2, num_samples):
 		probability_new = alpha / (customer - 1 + alpha)
 		if np.random.rand() < probability_new:
 			k = k + 1
-			theta = np.random.multivariate_normal([g0_params[0], g0_params[1]], covariance)
+			theta = (np.random.uniform(),np.random.uniform())
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			params[k] = theta
 			customer_table[k] = 1
