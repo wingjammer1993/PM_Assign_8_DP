@@ -22,6 +22,7 @@ def draw_from_crp(alpha, sigma, num_samples):
 			theta = np.random.multivariate_normal([g0_params[0], g0_params[1]], covariance)
 			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
 			params[k] = theta
+			customer_table[k] = 1
 		else:
 			probability_old = []
 			for table in customer_table:
