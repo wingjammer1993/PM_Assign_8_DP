@@ -42,7 +42,10 @@ def plot_distribution(customer_xx, customer_yy, num_tables):
 			if customer_xx[num][-1] == k:
 				list_x.append(customer_xx[num][0])
 				list_y.append(customer_yy[num][0])
-		plt.scatter(list_x, list_y)
+		plt.xlabel("x")
+		plt.ylabel("y")
+		plt.title("Samples from DPMM with CRP, alpha = 0.5")
+		plt.scatter(list_x, list_y, marker='o')
 	plt.show()
 
 
