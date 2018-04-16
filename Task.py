@@ -10,14 +10,16 @@ def draw_from_crp(alpha, sigma, num_samples):
 	customer_x = OrderedDict()
 	customer_y = OrderedDict()
 	theta_1 = (np.random.uniform(), np.random.uniform())
-	customer_x[1], customer_y[1] = np.random.multivariate_normal([theta_1[0], theta_1[1]], covariance)
+	customer_x[1] = np.random.multivariate_normal([theta_1[0], theta_1[1]], covariance)[0], 1
+	customer_y[1] = np.random.multivariate_normal([theta_1[0], theta_1[1]], covariance)[-1], 1
 	params = {1: theta_1}
 	for customer in range(2, num_samples):
 		probability_new = alpha / (customer - 1 + alpha)
 		if np.random.rand() < probability_new:
 			k = k + 1
 			theta = (np.random.uniform(), np.random.uniform())
-			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
+			customer_x[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)[0], k
+			customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)[-1], k
 			params[k] = theta
 			customer_table[k] = 1
 		else:
@@ -26,15 +28,21 @@ def draw_from_crp(alpha, sigma, num_samples):
 				probability_old.append(customer_table[table] / (customer - 1 + alpha))
 			idx_max = np.argmax(np.random.multinomial(1, probability_old, size=1)) + 1
 			theta = params[int(idx_max)]
-			customer_x[customer], customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)
+			customer_x[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)[0], int(idx_max)
+			customer_y[customer] = np.random.multivariate_normal([theta[0], theta[1]], covariance)[-1], int(idx_max)
 			customer_table[int(idx_max)] = customer_table[int(idx_max)] + 1
-	plt.scatter(list(customer_x.values()), list(customer_y.values()))
-	list_1 = []
-	list_2 = []
-	for p in params:
-		list_1.append(params[p][0])
-		list_2.append(params[p][-1])
-	plt.scatter(list_1, list_2, color='green')
+	plot_distribution(customer_x, customer_y, k)
+
+
+def plot_distribution(customer_xx, customer_yy, num_tables):
+	for k in range(1, num_tables+1):
+		list_x = []
+		list_y = []
+		for num in customer_xx:
+			if customer_xx[num][-1] == k:
+				list_x.append(customer_xx[num][0])
+				list_y.append(customer_yy[num][0])
+		plt.scatter(list_x, list_y)
 	plt.show()
 
 
